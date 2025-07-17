@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FTCE Chemistry Game</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="dashboard">
+      <h2>Progress Dashboard</h2>
+      <div class="progress-topic" id="progress-atomic">
+        <label>Atomic Structure</label>
+        <progress value="0" max="100"></progress>
+      </div>
+      <div class="progress-topic" id="progress-bonding">
+        <label>Chemical Bonding</label>
+        <progress value="0" max="100"></progress>
+      </div>
+      <div class="progress-topic" id="progress-thermo">
+        <label>Thermodynamics</label>
+        <progress value="0" max="100"></progress>
+      </div>
+      <div class="progress-topic" id="progress-acids">
+        <label>Acids & Bases</label>
+        <progress value="0" max="100"></progress>
+      </div>
+      <div class="rewards">
+        <h3>Rewards</h3>
+        <ul id="reward-list">
+          <li>🔓 Hint Tokens: <span id="hint-tokens">3</span></li>
+          <li>⚡ Power-Ups: <span id="power-ups">0</span></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main id="game-area">
+      <div id="question-container">
+        <h2 id="question-text">Loading question...</h2>
+        <div id="answers"></div>
+      </div>
+
+      <div id="game-controls">
+        <button id="next-btn">Next Question</button>
+        <button id="hint-btn">Use Hint</button>
+      </div>
+
+      <div id="session-status">
+        <p>Questions Answered: <span id="question-count">0</span> / 20</p>
+        <button id="end-session-btn">End Session</button>
+      </div>
+
+      <div id="session-end-options" style="display:none;">
+        <h3>Session Complete!</h3>
+        <button id="continue-session">Continue</button>
+        <button id="stop-session">Stop Here</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
 <!-- Main HTML content will be generated later -->
