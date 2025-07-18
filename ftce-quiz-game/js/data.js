@@ -1,4 +1,7 @@
+// data.js - Expanded FTCE Chemistry Question Bank (200 total)
+
 const questions = [
+  // Atomic Structure
   {
     topic: "atomic",
     question: "Which particle has no charge?",
