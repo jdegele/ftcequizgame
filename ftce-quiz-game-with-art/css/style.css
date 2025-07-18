@@ -45,6 +45,7 @@ progress {
   height: 12px;
   border-radius: 6px;
   background: #334155;
+  transition: all 0.3s ease-in-out;
 }
 
 progress::-webkit-progress-bar {
@@ -91,6 +92,7 @@ progress::-webkit-progress-value {
   color: #f1f5f9;
   cursor: pointer;
   transition: background 0.3s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 .answer-btn:hover {
@@ -118,6 +120,23 @@ button {
 
 button:hover {
   background-color: #2563eb;
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sparkle {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.sparkle {
+  animation: sparkle 0.5s ease-out;
 }
 
 @media (max-width: 768px) {
@@ -138,12 +157,4 @@ button:hover {
   #game-area {
     padding: 16px;
   }
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.answer-btn {
-  animation: fadeIn 0.4s ease;
 }
