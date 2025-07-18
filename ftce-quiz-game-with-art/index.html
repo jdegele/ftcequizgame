@@ -9,18 +9,15 @@
 <body>
   <div class="container">
     <h1>FTCE Chemistry Quiz</h1>
-    <div id="game">
-      <div id="question-container">
-        <img id="question-image" src="" alt="" class="hidden" />
-        <p id="question-text">Loading...</p>
-        <ul id="choices"></ul>
-      </div>
-      <div id="feedback"></div>
-      <button id="next-btn">Next</button>
+    <div id="quiz-container">
+      <div id="question-image"></div>
+      <h2 id="question-text">Loading...</h2>
+      <ul id="choices"></ul>
+      <button id="next-btn" disabled>Next</button>
+      <p id="explanation"></p>
     </div>
   </div>
-
   <script src="js/data.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
