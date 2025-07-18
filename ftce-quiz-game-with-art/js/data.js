@@ -1,10 +1,13 @@
 // data.js - Expanded FTCE Chemistry Question Bank (200 total)
 
 const questions = [
+  // Images will be referenced via 'image' property
+  // Each image path should be accessible from your web root (e.g., /images/atomic_model.png)
   // Atomic Structure
   {
     topic: "atomic",
     question: "Which particle has no charge?",
+    image: "/images/neutral_particle_diagram.png",
     choices: ["Proton", "Neutron", "Electron", "Ion"],
     answer: "Neutron",
     explanation: "Neutrons are neutral particles found in the nucleus with no electric charge."
@@ -49,6 +52,7 @@ const questions = [
   {
     topic: "bonding",
     question: "Which of the following is a polar molecule?",
+    image: "/images/water_polarity_diagram.png",
     choices: ["CO2", "CH4", "H2O", "Cl2"],
     answer: "H2O",
     explanation: "Water is polar due to its bent shape and polar bonds."
@@ -86,6 +90,7 @@ const questions = [
   {
     topic: "thermo",
     question: "Which process is exothermic?",
+    image: "/images/exothermic_curve.png",
     choices: ["Boiling water", "Condensation of steam", "Melting ice", "Photosynthesis"],
     answer: "Condensation of steam",
     explanation: "Condensation releases heat."
@@ -192,6 +197,7 @@ const questions = [
   {
     topic: "nuclear",
     question: "What is emitted in alpha decay?",
+    image: "/images/alpha_decay.png",
     choices: ["1 proton", "1 neutron", "2 protons and 2 neutrons", "1 electron"],
     answer: "2 protons and 2 neutrons",
     explanation: "Alpha particles consist of 2 protons and 2 neutrons."
@@ -267,6 +273,7 @@ const questions = [
   {
     topic: "equilibrium",
     question: "What is Le Chatelier’s Principle?",
+    image: "/images/le_chateliers_principle.png",
     choices: ["A way to calculate mass", "A buffer system rule", "A system shifts to minimize stress", "A redox rule"],
     answer: "A system shifts to minimize stress",
     explanation: "Le Chatelier’s Principle states that equilibrium shifts to counteract imposed changes."
@@ -300,4 +307,3 @@ const questions = [
     explanation: "Catalysts speed up both directions equally; they don’t shift equilibrium."
   }
 ];
-
