@@ -1,0 +1,11 @@
+/(index.html)
+│
+├── /css/
+│   └── style.css
+│
+├── /js/
+│   ├── app.js
+│   └── data.js  ✅ already done in Canvas!
+│
+└── /images/
+    └── neutral_particle_diagram.png (optional image for testing)
