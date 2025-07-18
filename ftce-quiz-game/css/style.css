@@ -1,0 +1,23 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+}
+#quiz-container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+#choices li {
+  list-style: none;
+  padding: 8px;
+  margin: 5px 0;
+  background: #e0e0e0;
+  cursor: pointer;
+}
+#choices li:hover {
+  background: #d5d5d5;
+}
