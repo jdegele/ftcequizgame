@@ -1,16 +1,230 @@
 // Edgenuity Remediation Hub - Main Application Logic
 
+// Student data
+let studentData = {
+    name: '',
+    id: '',
+    period: '',
+    loginTime: null
+};
+
+// Score tracking
+let quizScores = [];
+
 // State management
 let currentSubject = null;
 let currentCourse = null;
 let currentUnit = null;
 
 // DOM Elements
+const studentLoginModal = document.getElementById('student-login-modal');
+const scoreReportModal = document.getElementById('score-report-modal');
+const app = document.getElementById('app');
 const subjectSelection = document.getElementById('subject-selection');
 const courseSelection = document.getElementById('course-selection');
 const unitSelection = document.getElementById('unit-selection');
 const remediationActivities = document.getElementById('remediation-activities');
 const activityView = document.getElementById('activity-view');
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for existing session
+    const savedSession = localStorage.getItem('edgenuitySession');
+    if (savedSession) {
+        const session = JSON.parse(savedSession);
+        // Check if session is from today
+        const sessionDate = new Date(session.loginTime).toDateString();
+        const today = new Date().toDateString();
+        if (sessionDate === today) {
+            studentData = session.studentData;
+            quizScores = session.quizScores || [];
+            showApp();
+            return;
+        }
+    }
+
+    // Show login modal
+    setupLoginForm();
+});
+
+// Setup login form
+function setupLoginForm() {
+    const form = document.getElementById('student-login-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        studentData.name = document.getElementById('student-name').value.trim();
+        studentData.id = document.getElementById('student-id').value.trim();
+        studentData.period = document.getElementById('class-period').value;
+        studentData.loginTime = new Date().toISOString();
+
+        // Save session
+        saveSession();
+
+        // Show the app
+        showApp();
+    });
+}
+
+// Show the main app
+function showApp() {
+    studentLoginModal.classList.add('hidden');
+    app.classList.remove('hidden');
+
+    // Update student info bar
+    document.getElementById('display-student-name').textContent = studentData.name;
+    document.getElementById('display-student-id').textContent = `ID: ${studentData.id}`;
+    document.getElementById('display-class-period').textContent = `Period ${studentData.period}`;
+}
+
+// Save session to localStorage
+function saveSession() {
+    const session = {
+        studentData: studentData,
+        quizScores: quizScores,
+        loginTime: studentData.loginTime
+    };
+    localStorage.setItem('edgenuitySession', JSON.stringify(session));
+}
+
+// Record a quiz score
+function recordQuizScore(courseName, unitName, quizTitle, score, totalQuestions, passed) {
+    const scoreEntry = {
+        course: courseName,
+        unit: unitName,
+        quiz: quizTitle,
+        score: score,
+        total: totalQuestions,
+        percentage: Math.round((score / totalQuestions) * 100),
+        passed: passed,
+        timestamp: new Date().toISOString()
+    };
+
+    quizScores.push(scoreEntry);
+    saveSession();
+}
+
+// Generate verification code
+function generateVerificationCode() {
+    const data = studentData.id + studentData.name + new Date().toDateString();
+    let hash = 0;
+    for (let i = 0; i < data.length; i++) {
+        const char = data.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return Math.abs(hash).toString(36).toUpperCase().substring(0, 8);
+}
+
+// Show score report
+function showScoreReport() {
+    const reportContent = document.getElementById('score-report-content');
+    const now = new Date();
+
+    let html = `
+        <div class="student-details">
+            <h3>Student Information</h3>
+            <div class="detail-row">
+                <span class="detail-label">Student Name:</span>
+                <span class="detail-value">${studentData.name}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Student ID:</span>
+                <span class="detail-value">${studentData.id}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Class Period:</span>
+                <span class="detail-value">Period ${studentData.period}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Report Date:</span>
+                <span class="detail-value">${now.toLocaleDateString()} ${now.toLocaleTimeString()}</span>
+            </div>
+        </div>
+    `;
+
+    if (quizScores.length > 0) {
+        // Calculate summary stats
+        const totalQuizzes = quizScores.length;
+        const passedQuizzes = quizScores.filter(s => s.passed).length;
+        const avgScore = Math.round(quizScores.reduce((sum, s) => sum + s.percentage, 0) / totalQuizzes);
+
+        html += `
+            <div class="report-summary">
+                <h3>Summary</h3>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">${totalQuizzes}</div>
+                        <div class="stat-label">Quizzes Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${passedQuizzes}/${totalQuizzes}</div>
+                        <div class="stat-label">Quizzes Passed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${avgScore}%</div>
+                        <div class="stat-label">Average Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-scores">
+                <h3>Quiz Score Details</h3>
+                <table class="score-table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Unit/Quiz</th>
+                            <th>Score</th>
+                            <th>Status</th>
+                            <th>Date/Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${quizScores.map(s => `
+                            <tr>
+                                <td>${s.course}</td>
+                                <td>${s.quiz}</td>
+                                <td class="${s.passed ? 'score-pass' : 'score-fail'}">${s.score}/${s.total} (${s.percentage}%)</td>
+                                <td class="${s.passed ? 'score-pass' : 'score-fail'}">${s.passed ? 'PASSED' : 'NEEDS REVIEW'}</td>
+                                <td>${new Date(s.timestamp).toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } else {
+        html += `
+            <div class="no-scores">
+                <p>No quiz scores recorded yet.</p>
+                <p>Complete practice quizzes to see your scores here.</p>
+            </div>
+        `;
+    }
+
+    // Add verification code
+    html += `
+        <div class="verification-code">
+            <p>Teacher Verification Code:</p>
+            <span class="code">${generateVerificationCode()}</span>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.8;">This code verifies the authenticity of this report</p>
+        </div>
+    `;
+
+    reportContent.innerHTML = html;
+    scoreReportModal.classList.remove('hidden');
+}
+
+// Close score report
+function closeScoreReport() {
+    scoreReportModal.classList.add('hidden');
+}
+
+// Print score report
+function printScoreReport() {
+    window.print();
+}
 
 // Show courses for selected subject
 function showCourses(subject) {
@@ -156,6 +370,7 @@ function renderPracticeQuiz(activity) {
         <div id="quiz-results" style="display: none; margin-top: 20px; padding: 20px; background: #e8f4fc; border-radius: 8px;">
             <h4>Quiz Complete!</h4>
             <p id="results-text"></p>
+            <p id="score-recorded" style="margin-top: 10px; font-style: italic; color: #27ae60;"></p>
         </div>
     `;
 }
@@ -196,19 +411,36 @@ function initializePracticeQuiz(activity) {
                 if (answered === questions.length) {
                     const resultsDiv = document.getElementById('quiz-results');
                     const resultsText = document.getElementById('results-text');
+                    const scoreRecorded = document.getElementById('score-recorded');
                     resultsDiv.style.display = 'block';
-                    resultsText.textContent = `You got ${correct} out of ${questions.length} correct (${Math.round(correct/questions.length * 100)}%)`;
 
-                    if (correct === questions.length) {
+                    const percentage = Math.round(correct/questions.length * 100);
+                    const passed = percentage >= 70;
+
+                    resultsText.textContent = `You got ${correct} out of ${questions.length} correct (${percentage}%)`;
+
+                    if (passed) {
                         resultsDiv.style.background = '#d4edda';
-                        resultsText.textContent += ' - Excellent work!';
-                    } else if (correct >= questions.length * 0.7) {
+                        resultsText.textContent += ' - PASSED!';
+                    } else if (percentage >= 50) {
                         resultsDiv.style.background = '#fff3cd';
-                        resultsText.textContent += ' - Good job! Review the explanations for missed questions.';
+                        resultsText.textContent += ' - Review the explanations and try again.';
                     } else {
                         resultsDiv.style.background = '#f8d7da';
-                        resultsText.textContent += ' - Consider reviewing the material and trying again.';
+                        resultsText.textContent += ' - Please review the material before retrying.';
                     }
+
+                    // Record the score
+                    recordQuizScore(
+                        currentCourse.name,
+                        currentUnit.name,
+                        activity.title,
+                        correct,
+                        questions.length,
+                        passed
+                    );
+
+                    scoreRecorded.textContent = 'Score has been recorded to your report.';
                 }
             });
         });
@@ -286,9 +518,3 @@ function goBack(to) {
             break;
     }
 }
-
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Edgenuity Remediation Hub loaded successfully!');
-    console.log(`Available subjects: ${Object.keys(courseData).join(', ')}`);
-});

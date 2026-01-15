@@ -384,6 +384,323 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.modal-content > p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Student Info Bar */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#student-info-bar {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+}
+
+#student-info-bar span {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 15px;
+}
+
+.btn-report {
+    background: #f39c12;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-report:hover {
+    background: #e67e22;
+}
+
+/* Score Report Styles */
+.score-report {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.report-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    margin-bottom: 20px;
+}
+
+.report-header h2 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.report-subtitle {
+    color: #666;
+    font-style: italic;
+}
+
+.student-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.student-details h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.detail-value {
+    color: #2c3e50;
+}
+
+.quiz-scores {
+    margin-bottom: 20px;
+}
+
+.quiz-scores h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.score-table th,
+.score-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.score-table th {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.score-table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.score-table .score-pass {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.score-table .score-fail {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.report-summary {
+    background: #e8f4fc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #3498db;
+}
+
+.report-summary h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    text-align: center;
+}
+
+.stat-item {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #3498db;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.verification-code {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.verification-code p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.verification-code .code {
+    font-family: monospace;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.report-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+.no-scores {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.no-scores p {
+    margin-bottom: 10px;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .modal {
+        position: static;
+        background: none;
+    }
+
+    .modal-content {
+        box-shadow: none;
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .report-actions {
+        display: none;
+    }
+
+    .btn-report {
+        display: none;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 600px) {
     header h1 {
@@ -400,5 +717,24 @@ footer a:hover {
 
     .subject-icon {
         font-size: 2.5rem;
+    }
+
+    .header-top {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #student-info-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .summary-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 25px;
     }
 }
