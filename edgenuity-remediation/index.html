@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgenuity Remediation Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Edgenuity Remediation Hub</h1>
+            <p class="subtitle">High School Math & Science Quiz Recovery Activities</p>
+        </header>
+
+        <!-- Subject Selection -->
+        <main id="subject-selection">
+            <h2>Select Your Subject</h2>
+            <div class="subject-cards">
+                <div class="subject-card" data-subject="math">
+                    <div class="subject-icon">&#128202;</div>
+                    <h3>Mathematics</h3>
+                    <p>Algebra, Geometry, Pre-Calculus & more</p>
+                    <button class="btn-primary" onclick="showCourses('math')">View Math Courses</button>
+                </div>
+                <div class="subject-card" data-subject="science">
+                    <div class="subject-icon">&#128300;</div>
+                    <h3>Science</h3>
+                    <p>Biology, Chemistry, Physics & more</p>
+                    <button class="btn-primary" onclick="showCourses('science')">View Science Courses</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Course Selection (hidden by default) -->
+        <section id="course-selection" class="hidden">
+            <button class="back-btn" onclick="goBack('subjects')">&larr; Back to Subjects</button>
+            <h2 id="course-heading">Select Your Course</h2>
+            <div id="course-list" class="course-cards">
+                <!-- Courses populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Unit Selection (hidden by default) -->
+        <section id="unit-selection" class="hidden">
+            <button class="back-btn" onclick="goBack('courses')">&larr; Back to Courses</button>
+            <h2 id="unit-heading">Select Unit/Topic</h2>
+            <div id="unit-list" class="unit-cards">
+                <!-- Units populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Remediation Activities (hidden by default) -->
+        <section id="remediation-activities" class="hidden">
+            <button class="back-btn" onclick="goBack('units')">&larr; Back to Units</button>
+            <h2 id="activity-heading">Remediation Activities</h2>
+            <div class="activity-info">
+                <p id="activity-description"></p>
+            </div>
+            <div id="activity-list" class="activity-cards">
+                <!-- Activities populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Activity View (hidden by default) -->
+        <section id="activity-view" class="hidden">
+            <button class="back-btn" onclick="goBack('activities')">&larr; Back to Activities</button>
+            <div id="activity-content">
+                <!-- Activity content loaded here -->
+            </div>
+        </section>
+
+        <footer>
+            <p><a href="../ftce-quiz-game/index.html">FTCE Quiz Game</a> | Edgenuity Remediation Hub</p>
+        </footer>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
